@@ -91,7 +91,7 @@ Function Open-HKCRSubKey {
             throw 'This action requires elevated permissions. Run PowerShell as Administrator.'
         }
     }
-    
+
     Process {
         try {
             $HKCR = [Microsoft.Win32.RegistryKey]::OpenBaseKey(
@@ -188,7 +188,7 @@ function Get-VSCELicenseExpirationDate {
     Set-VSCELicenseExpirationDate -Version VS2017 -AddDays 0
 
     Set license expiration date to current date.
-    This will immediately expire your license and you woudln't be able to use Visual Studio.
+    This will immediately expire your license and you wouldn't be able to use Visual Studio.
 #>
 function Set-VSCELicenseExpirationDate {
     [CmdletBinding()]

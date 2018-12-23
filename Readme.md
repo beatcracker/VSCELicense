@@ -36,7 +36,7 @@ Set-VSCELicenseExpirationDate -Version VS2017 -AddDays 10
 
 #### Set license expiration date to current date
 
-This will immediately expire your license and you woudln't be able to use Visual Studio.
+This will immediately expire your license and you wouldn't be able to use Visual Studio.
 
 ```posh
 Set-VSCELicenseExpirationDate -Version VS2017 -AddDays 0
