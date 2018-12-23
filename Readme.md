@@ -39,5 +39,5 @@ Set-VSCELicenseExpirationDate -Version VS2017 -AddDays 10
 This will immediately expire your license and you woudln't be able to use Visual Studio.
 
 ```posh
-Set-VSCELicenseExpirationDate -Version VS2017 -AddDays
+Set-VSCELicenseExpirationDate -Version VS2017 -AddDays 0
 ```
