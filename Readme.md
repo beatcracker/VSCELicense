@@ -10,6 +10,7 @@ Based on [Dmitrii](https://stackoverflow.com/users/10046552/dmitrii)'s answer to
 
 1. Download/clone this repository
 2. Import module:
+
    ```posh
    Import-Module -Name X:\PATH\TO\VSCELicense
    ```
