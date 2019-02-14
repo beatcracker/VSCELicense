@@ -24,6 +24,8 @@ Get-VSCELicenseExpirationDate -Version VS2017
 
 ### Set Visual Studio Community Edition license expiration date
 
+Writing to the Visual Studio license registry key requires elevated permissions. Run PowerShell as administrator for examples to work.
+
 #### Set license expiration date to current date + 31 day
 
 ```posh
