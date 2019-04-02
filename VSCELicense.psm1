@@ -2,6 +2,7 @@
 
 New-Variable -Name VSCELicenseMap -Value @{
     'VS2017' = 'Licenses\5C505A59-E312-4B89-9508-E162F8150517\08878'
+    'VS2019' = 'Licenses\41717607-F34E-432C-A138-A3CFD7E25CDA\09278'
 } -Option Constant
 
 #endregion
@@ -133,7 +134,7 @@ Function Open-HKCRSubKey {
 function Get-VSCELicenseExpirationDate {
     [CmdletBinding()]
     Param (
-        [ValidateSet('VS2017')]
+        [ValidateSet('VS2017', 'VS2019')]
         [string]$Version = 'VS2017'
     )
 
@@ -169,7 +170,7 @@ function Get-VSCELicenseExpirationDate {
     This is max allowed number of days, otherwise your license will be deemed invalid.
 
 .Parameter Version
-    String. One of the suported Visual Studio Community Edition versions.
+    String. One of the suported Visual Studio Community Edition versions. Default is VS2017.
 
 .Parameter AddDays
     Int. Number of days to add. 31 is max allowed and default.
@@ -177,15 +178,20 @@ function Get-VSCELicenseExpirationDate {
 .Example
     Set-VSCELicenseExpirationDate -Version VS2017
 
-    Set license expiration date to current date + 31 day
+    Set license expiration date to current date + 31 day (Visual Studio 2017)
 
 .Example
-    Set-VSCELicenseExpirationDate -Version VS2017 -AddDays 10
+    Set-VSCELicenseExpirationDate -Version VS2019
+
+    Set license expiration date to current date + 31 day  (Visual Studio 2019)
+
+.Example
+    Set-VSCELicenseExpirationDate -Version VS2019 -AddDays 10
 
     Set license expiration date to current date + 10 days
 
 .Example
-    Set-VSCELicenseExpirationDate -Version VS2017 -AddDays 0
+    Set-VSCELicenseExpirationDate -Version VS2019 -AddDays 0
 
     Set license expiration date to current date.
     This will immediately expire your license and you wouldn't be able to use Visual Studio.
@@ -193,7 +199,7 @@ function Get-VSCELicenseExpirationDate {
 function Set-VSCELicenseExpirationDate {
     [CmdletBinding()]
     Param (
-        [ValidateSet('VS2017')]
+        [ValidateSet('VS2017', 'VS2019')]
         [string]$Version = 'VS2017',
 
         [ValidateRange(0, 31)]
