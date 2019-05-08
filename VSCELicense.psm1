@@ -1,3 +1,5 @@
+Add-Type -AssemblyName System.Security
+
 #region Constants
 
 New-Variable -Name VSCELicenseMap -Value @{
