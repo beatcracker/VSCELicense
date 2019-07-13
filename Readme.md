@@ -64,4 +64,4 @@ Set-VSCELicenseExpirationDate -Version VS2019 -AddDays 0
 ```
 
 ### What's new
-Edited Manifest to avoid execution errors under fresh Powershell environments.
+Edited Manifest to avoid execution errors under fresh Powershell environments by https://github.com/1Dimitri
