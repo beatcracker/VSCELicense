@@ -63,5 +63,9 @@ Set-VSCELicenseExpirationDate -Version VS2017 -AddDays 0
 Set-VSCELicenseExpirationDate -Version VS2019 -AddDays 0
 ```
 
-### What's new
-Edited Manifest to avoid execution errors under fresh Powershell environments by https://github.com/1Dimitri
+### Changelog
+
+- 0.0.1 - Intial commit, VS2017 support
+- 0.0.2 - Added VS2019 support
+- 0.0.3 - Fixed manifest to avoid execution errors under fresh PowerShell environments ([@1Dimitri](https://github.com/1Dimitri))
+- 0.0.4 - Support downlevel PowerShell versions, starting from `3.0`
