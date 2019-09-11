@@ -7,6 +7,7 @@ New-Variable -Name VSCELicenseMap -Value @{
 
 #endregion
 
+Add-Type -assembly System.Security
 
 <#
 .Synopsis
