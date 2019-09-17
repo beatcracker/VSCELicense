@@ -70,3 +70,4 @@ Set-VSCELicenseExpirationDate -Version VS2019 -AddDays 0
 - 0.0.3 - Fixed manifest to avoid execution errors under fresh PowerShell environments ([@1Dimitri](https://github.com/1Dimitri))
 - 0.0.4 - Support downlevel PowerShell versions, starting from `3.0`
 - 0.0.5 - Duh, actually set `PowerShellVersion = '3.0'` in manifest
+- 0.0.6 - Load `System.Security` assembly if module was imported without manifest
