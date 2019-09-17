@@ -8,6 +8,8 @@ New-Variable -Name VSCELicenseMap -Value @{
 #endregion
 
 
+#region Internal functions
+
 <#
 .Synopsis
     Test if PowerShell is running as elevated process
@@ -120,6 +122,9 @@ Function Open-HKCRSubKey {
     }
 }
 
+#endregion
+
+#region External functions
 
 <#
 .Synopsis
@@ -242,3 +247,24 @@ function Set-VSCELicenseExpirationDate {
         $NewExpirationDate
     }
 }
+
+#endregion
+
+#region Startup
+
+if (-not ([System.Management.Automation.PSTypeName]'System.Security.Cryptography.ProtectedData').Type) {
+    $ModulePath = $Script:MyInvocation.MyCommand.Path
+    $ModuleFolder = [System.IO.Path]::GetDirectoryName($ModulePath)
+    $ModuleManifest = Join-Path $ModuleFolder ([System.IO.Path]::GetFileNameWithoutExtension($ModulePath) + '.psd1')
+
+    @(
+        "Loading 'System.Security' assembly."
+        'To avoid this message, import module using manifest or folder name w/o trailing slash:'
+        "Import-Module -Name '$ModuleManifest'"
+        "Import-Module -Name '$ModuleFolder'"
+    ) -join [System.Environment]::NewLine | Write-Warning
+
+    Add-Type -AssemblyName 'System.Security' -ErrorAction Stop
+}
+
+#endregion
