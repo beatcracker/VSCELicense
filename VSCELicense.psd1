@@ -1,6 +1,6 @@
 @{
     RootModule           = 'VSCELicense.psm1'
-    ModuleVersion        = '0.0.5'
+    ModuleVersion        = '0.0.6'
     GUID                 = 'a99bf6dc-41a5-4305-9113-db6d94fc5147'
     Author               = 'beatcracker'
     CompanyName          = 'N/A'
