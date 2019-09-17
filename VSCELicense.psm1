@@ -56,7 +56,7 @@ function ConvertFrom-BinaryDate {
 
 <#
 .Synopsis
-    Convert [dateime] to VS CE binary date format
+    Convert [datetime] to VS CE binary date format
 #>
 function ConvertTo-BinaryDate {
     [CmdletBinding()]
