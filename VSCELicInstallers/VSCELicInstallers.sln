@@ -5,16 +5,22 @@ VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "VSCEPSModuleMSI64", "VSCEPSModuleMSI64\VSCEPSModuleMSI64.wixproj", "{1F9C7098-573D-4B56-9E18-7D5E699BFC55}"
 EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "VSCEPSModuleMSI32", "VSCEPSModuleMSI32\VSCEPSModuleMSI32.wixproj", "{971994F2-8A9C-4D5F-9594-80ACB7F946D2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1F9C7098-573D-4B56-9E18-7D5E699BFC55}.Debug|x86.ActiveCfg = Debug|x86
-		{1F9C7098-573D-4B56-9E18-7D5E699BFC55}.Debug|x86.Build.0 = Debug|x86
+		{1F9C7098-573D-4B56-9E18-7D5E699BFC55}.Debug|x86.ActiveCfg = Release|x86
+		{1F9C7098-573D-4B56-9E18-7D5E699BFC55}.Debug|x86.Build.0 = Release|x86
 		{1F9C7098-573D-4B56-9E18-7D5E699BFC55}.Release|x86.ActiveCfg = Release|x86
 		{1F9C7098-573D-4B56-9E18-7D5E699BFC55}.Release|x86.Build.0 = Release|x86
+		{971994F2-8A9C-4D5F-9594-80ACB7F946D2}.Debug|x86.ActiveCfg = Release|x86
+		{971994F2-8A9C-4D5F-9594-80ACB7F946D2}.Debug|x86.Build.0 = Release|x86
+		{971994F2-8A9C-4D5F-9594-80ACB7F946D2}.Release|x86.ActiveCfg = Release|x86
+		{971994F2-8A9C-4D5F-9594-80ACB7F946D2}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

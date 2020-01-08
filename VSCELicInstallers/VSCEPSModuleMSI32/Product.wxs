@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="D116DF8E-F2DE-43D8-A6DE-3F2F9C7CEB83" Name="VSCE License Reset Powershell Module (32-bit)" Language="1033" Version="0.0.6.0" Manufacturer="1Dimitri" UpgradeCode="F04B4062-1362-40E0-A999-69C72B38A034">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Platform="x86"/>
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate EmbedCab="yes"/>
+
+    <Feature Id="FEAT_PSModule" Title="Powershell Module" Level="1">
+      <ComponentGroupRef Id="CG_PSModule" />
+    </Feature>
+  </Product>
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="DIR_WindowsPowershell" Name="WindowsPowershell">
+          <Directory Id="DIR_Modules" Name="Modules">
+            <Directory Id="INSTALLFOLDER" Name="VSCELicense" />
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="CG_PSModule" Directory="INSTALLFOLDER" Source="..\..">
+      <Component Id="C_PSD">
+        <File Id="PSD" Name="VSCELicense.psd1" KeyPath="yes">
+        </File>
+      </Component>
+      <Component Id="C_PSM">
+        <File Id="PSM" Name="VSCELicense.psm1" KeyPath="yes">
+        </File>
+      </Component>
+      <Component Id="C_License">
+        <File Id="Lic" Name="License" KeyPath="yes">
+        </File>
+      </Component>
+      <Component Id="C_Readme">
+        <File Id="read" Name="Readme.md" KeyPath="yes">
+        </File>
+      </Component>
+
+    </ComponentGroup>
+  </Fragment>
+</Wix>
