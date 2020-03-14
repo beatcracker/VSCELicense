@@ -20,6 +20,10 @@ Based on [Dmitrii](https://stackoverflow.com/users/10046552/dmitrii)'s answer to
 ### Get Visual Studio Community Edition license expiration date
 
 ```posh
+Get-VSCELicenseExpirationDate -Version VS2015
+```
+
+```posh
 Get-VSCELicenseExpirationDate -Version VS2017
 ```
 
@@ -34,6 +38,10 @@ Writing to the Visual Studio license registry key requires elevated permissions.
 #### Set license expiration date to current date + 31 day
 
 ```posh
+Set-VSCELicenseExpirationDate -Version VS2015
+```
+
+```posh
 Set-VSCELicenseExpirationDate -Version VS2017
 ```
 
@@ -42,6 +50,10 @@ Set-VSCELicenseExpirationDate -Version VS2019
 ```
 
 #### Set license expiration date to current date + 10 days
+
+```posh
+Set-VSCELicenseExpirationDate -Version VS2015 -AddDays 10
+```
 
 ```posh
 Set-VSCELicenseExpirationDate -Version VS2017 -AddDays 10
@@ -54,6 +66,10 @@ Set-VSCELicenseExpirationDate -Version VS2019 -AddDays 10
 #### Set license expiration date to current date
 
 This will immediately expire your license and you wouldn't be able to use Visual Studio.
+
+```posh
+Set-VSCELicenseExpirationDate -Version VS2015 -AddDays 0
+```
 
 ```posh
 Set-VSCELicenseExpirationDate -Version VS2017 -AddDays 0
@@ -71,3 +87,4 @@ Set-VSCELicenseExpirationDate -Version VS2019 -AddDays 0
 - 0.0.4 - Support downlevel PowerShell versions, starting from `3.0`
 - 0.0.5 - Duh, actually set `PowerShellVersion = '3.0'` in manifest
 - 0.0.6 - Load `System.Security` assembly if module was imported without manifest
+- 0.0.7 - Added VS2015 support
