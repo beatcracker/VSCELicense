@@ -14,7 +14,7 @@ Based on [Dmitrii](https://stackoverflow.com/users/10046552/dmitrii)'s answer to
    ```posh
    Import-Module -Name X:\PATH\TO\VSCELicense
    ```
-You may also get PowerShell execution restriction message. In such case use:
+You may also get PowerShell execution restriction message in [Windows 10](https://winaero.com/blog/change-powershell-execution-policy-windows-10/). In such case use:
 
    ```posh
    Set-ExecutionPolicy Unrestricted -Scope Process
