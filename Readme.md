@@ -14,7 +14,11 @@ Based on [Dmitrii](https://stackoverflow.com/users/10046552/dmitrii)'s answer to
    ```posh
    Import-Module -Name X:\PATH\TO\VSCELicense
    ```
+You may also get PowerShell execution restriction message. In such case use:
 
+   '''posh
+   Set-ExecutionPolicy Unrestricted -Scope Process
+   '''
 ## Examples
 
 ### Get Visual Studio Community Edition license expiration date
@@ -87,4 +91,4 @@ Set-VSCELicenseExpirationDate -Version VS2019 -AddDays 0
 - 0.0.4 - Support downlevel PowerShell versions, starting from `3.0`
 - 0.0.5 - Duh, actually set `PowerShellVersion = '3.0'` in manifest
 - 0.0.6 - Load `System.Security` assembly if module was imported without manifest
-- 0.0.7 - Added VS2015 support
+- 0.0.7 - Added VS2015 support ([@GDI123](https://github.com/GDI123))
