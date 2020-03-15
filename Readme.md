@@ -16,9 +16,9 @@ Based on [Dmitrii](https://stackoverflow.com/users/10046552/dmitrii)'s answer to
    ```
 You may also get PowerShell execution restriction message. In such case use:
 
-   '''posh
+   ```posh
    Set-ExecutionPolicy Unrestricted -Scope Process
-   '''
+   ```
 ## Examples
 
 ### Get Visual Studio Community Edition license expiration date
