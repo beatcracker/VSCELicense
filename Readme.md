@@ -16,11 +16,16 @@ Based on [Dmitrii](https://stackoverflow.com/users/10046552/dmitrii)'s answer to
    Import-Module -Name X:\PATH\TO\VSCELicense
    ```
 
-You may also get PowerShell execution restriction message in [Windows 10](https://winaero.com/blog/change-powershell-execution-policy-windows-10/). In such case use:
+    If you get `execution of scripts is disabled on this system` message, you can temporarily override PowerShell execution policy by running
 
    ```pwsh
-   Set-ExecutionPolicy Unrestricted -Scope Process
+   Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process
    ```
+
+    See PowerShell documentation for more details:
+
+    - [Set-ExecutionPolicy](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy)
+    - [About Execution Policies](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies)
 
 ## Examples
 
