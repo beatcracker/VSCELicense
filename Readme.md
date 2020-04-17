@@ -12,27 +12,29 @@ Based on [Dmitrii](https://stackoverflow.com/users/10046552/dmitrii)'s answer to
 2. Run PowerShell.exe as an Administrator
 3. Import module:
 
-   ```posh
+   ```pwsh
    Import-Module -Name X:\PATH\TO\VSCELicense
    ```
+
 You may also get PowerShell execution restriction message in [Windows 10](https://winaero.com/blog/change-powershell-execution-policy-windows-10/). In such case use:
 
-   ```posh
+   ```pwsh
    Set-ExecutionPolicy Unrestricted -Scope Process
    ```
+
 ## Examples
 
 ### Get Visual Studio Community Edition license expiration date
 
-```posh
+```pwsh
 Get-VSCELicenseExpirationDate -Version VS2015
 ```
 
-```posh
+```pwsh
 Get-VSCELicenseExpirationDate -Version VS2017
 ```
 
-```posh
+```pwsh
 Get-VSCELicenseExpirationDate -Version VS2019
 ```
 
@@ -42,29 +44,29 @@ Writing to the Visual Studio license registry key requires elevated permissions.
 
 #### Set license expiration date to current date + 31 day
 
-```posh
+```pwsh
 Set-VSCELicenseExpirationDate -Version VS2015
 ```
 
-```posh
+```pwsh
 Set-VSCELicenseExpirationDate -Version VS2017
 ```
 
-```posh
+```pwsh
 Set-VSCELicenseExpirationDate -Version VS2019
 ```
 
 #### Set license expiration date to current date + 10 days
 
-```posh
+```pwsh
 Set-VSCELicenseExpirationDate -Version VS2015 -AddDays 10
 ```
 
-```posh
+```pwsh
 Set-VSCELicenseExpirationDate -Version VS2017 -AddDays 10
 ```
 
-```posh
+```pwsh
 Set-VSCELicenseExpirationDate -Version VS2019 -AddDays 10
 ```
 
@@ -72,15 +74,15 @@ Set-VSCELicenseExpirationDate -Version VS2019 -AddDays 10
 
 This will immediately expire your license and you wouldn't be able to use Visual Studio.
 
-```posh
+```pwsh
 Set-VSCELicenseExpirationDate -Version VS2015 -AddDays 0
 ```
 
-```posh
+```pwsh
 Set-VSCELicenseExpirationDate -Version VS2017 -AddDays 0
 ```
 
-```posh
+```pwsh
 Set-VSCELicenseExpirationDate -Version VS2019 -AddDays 0
 ```
 
