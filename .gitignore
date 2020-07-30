@@ -356,3 +356,6 @@ MigrationBackup/
 *.wixpdb
 *.msi
 *.wixobj
+
+# other
+wix/
