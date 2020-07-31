@@ -7,7 +7,8 @@ using WixSharp;
 using WixSharp.CommonTasks;
 using WixSharp.Forms;
 using Microsoft.Win32.TaskScheduler;
-
+using System.Collections.Generic;
+using WixSharp.Controls;
 
 namespace VSCELicense_WixSharpInstaller
 {
@@ -20,12 +21,13 @@ namespace VSCELicense_WixSharpInstaller
 
                 UI = WUI.WixUI_ProgressOnly,
                 SourceBaseDir = @"..\..",
-             
-              
+                Platform = pt
         };
+            // don't forget the external assembly not in GAC.
+            project.DefaultRefAssemblies.Add(typeof(Microsoft.Win32.TaskScheduler.TaskService).Assembly.Location);
 
-            //project.BeforeInstall += Project_BeforeInstall;
-            //project.AfterInstall += Project_AfterInstall;
+            project.BeforeInstall += Project_BeforeInstall;
+            project.AfterInstall += Project_AfterInstall;
 
             string shortArch;
             string longArch;
@@ -37,6 +39,7 @@ namespace VSCELicense_WixSharpInstaller
                     project.GUID = new Guid("1BB13514-397A-478E-82BA-117A9C276FD4");
                     break;
                 case Platform.x64:
+                    
                     shortArch = "x64";
                     longArch = "64-bit";                
                     project.GUID = new Guid("2094AF85-9036-45A2-AADB-E44B935098E9");
@@ -45,18 +48,19 @@ namespace VSCELicense_WixSharpInstaller
                     throw new NotImplementedException("Unsupported architecture");
             };
 
+            
             project.Name = $"VSCE License Reset ({longArch})";
             project.OutFileName = $"VSCE_License_Reset_{shortArch}";
             project.Properties = new[]
          {
-                    new Property("ShortArch",shortArch) { Hidden = true},
-                    new Property("LongArch",longArch) { Hidden = true}
+                    new Property("ShortArch",shortArch) ,
+                    new Property("LongArch",longArch) 
                 };
 
 
             project.Dirs = new Dir[]
               {
-              new Dir(@"%ProgramFiles%\WindowsPowershell\Modules",
+              new Dir(@"%ProgramFiles%\WindowsPowershell\Modules\VSCELicense",
                 new WixSharp.File("VSCELicense.psd1"),
                 new WixSharp.File("VSCELicense.psm1"),
                 new WixSharp.File("License"),
@@ -74,7 +78,7 @@ namespace VSCELicense_WixSharpInstaller
             string longArch = e.Data["LongArch"];
             if (e.IsInstalling)
             {
-                TaskService ts = TaskService.Instance;
+              TaskService ts = TaskService.Instance;
                 TaskFolder tf = ts.RootFolder.CreateFolder("VSCELicense", exceptionOnExists: false);
                 TaskDefinition td = ts.NewTask();
                 ExecAction ea = new ExecAction();
@@ -92,11 +96,16 @@ Import-Module VSCELicense;
 }
 ";
                 ea.Arguments = $"-command \"{PSCommand}\"";
+                
                 td.Actions.Add(ea);
+                td.Principal.LogonType = TaskLogonType.ServiceAccount;
+                td.Principal.UserId = "SYSTEM";
+                td.Principal.RunLevel = TaskRunLevel.Highest;
                 DailyTrigger dt = new DailyTrigger();
                 dt.StartBoundary = DateTime.Today + TimeSpan.FromHours(1);  // 1am 
                 td.Triggers.Add(dt);
-                tf.RegisterTaskDefinition($"VSCELicense_{shortArch}", td);
+                // no underscore
+                tf.RegisterTaskDefinition($"VSCELicense{shortArch}", td);
             }
         }
 
@@ -104,13 +113,14 @@ Import-Module VSCELicense;
         {
             string shortArch = e.Data["ShortArch"];
             string longArch = e.Data["LongArch"];
-           if (e.IsUninstalling)
+           
+           if (e.IsUninstalling && e.IsElevated)  //TODO: find a workaround
             {
                 TaskService ts = TaskService.Instance;
                 TaskFolder tf = ts.GetFolder("VSCELicense");
                 if (null != tf)
                 {
-                    tf.DeleteTask($"VSCELicense_{shortArch}",false);
+                    tf.DeleteTask($"VSCELicense{shortArch}", false);
                 }
             }
         }
