@@ -1,6 +1,7 @@
 #region Constants
 
 New-Variable -Name VSCELicenseMap -Value @{
+    'VS2015' = 'Licenses\4D8CFBCB-2F6A-4AD2-BABF-10E28F6F2C8F\07078'
     'VS2017' = 'Licenses\5C505A59-E312-4B89-9508-E162F8150517\08878'
     'VS2019' = 'Licenses\41717607-F34E-432C-A138-A3CFD7E25CDA\09278'
 } -Option Constant
@@ -139,7 +140,7 @@ Function Open-HKCRSubKey {
 function Get-VSCELicenseExpirationDate {
     [CmdletBinding()]
     Param (
-        [ValidateSet('VS2017', 'VS2019')]
+        [ValidateSet('VS2015', 'VS2017', 'VS2019')]
         [string]$Version = 'VS2017'
     )
 
@@ -204,7 +205,7 @@ function Get-VSCELicenseExpirationDate {
 function Set-VSCELicenseExpirationDate {
     [CmdletBinding()]
     Param (
-        [ValidateSet('VS2017', 'VS2019')]
+        [ValidateSet('VS2015', 'VS2017', 'VS2019')]
         [string]$Version = 'VS2017',
 
         [ValidateRange(0, 31)]
