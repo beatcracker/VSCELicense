@@ -93,7 +93,7 @@ namespace VSCELicense_WixSharpInstaller
                 ea.Path = "powershell.exe";
                 string PSCommand = @"
 Import-Module VSCELicense;
-@('VS2019','VS2017') | ForEach-Object {
+@('VS2019','VS2017','VS2015') | ForEach-Object {
     try {
    
         Get-VSCELicenseExpirationDate -Version `$_;
@@ -114,7 +114,7 @@ Import-Module VSCELicense;
                 td.Triggers.Add(dt);
                
                 tf.RegisterTaskDefinition(TaskName, td);
-            }else if (e.IsUninstalling) 
+            } else if (e.IsUninstalling) 
             {
                 // Benefit fron elevation as here the order or file/task removal doesn't matter
                 // but BeforeINstall event should have been used to remove the task before the files being deleted
@@ -122,9 +122,7 @@ Import-Module VSCELicense;
                 TaskFolder tf = ts.GetFolder(TaskSubFolderName);
               
                 if (null != tf)
-                {
-
-                  
+                {                
                     tf.DeleteTask(TaskName, false);
                     int taskCount = tf.GetTasks().Count;
                     if (0==taskCount)

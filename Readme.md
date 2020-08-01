@@ -6,7 +6,18 @@ PowerShell module to get and set Visual Studio Community Edition license expirat
 
 Based on [Dmitrii](https://stackoverflow.com/users/10046552/dmitrii)'s answer to this question: [Visual Studio Community 2017 is a 30 day trial?](https://stackoverflow.com/questions/43390466/visual-studio-community-2017-is-a-30-day-trial/51570570#51570570)
 
-## Usage
+## Forked version benefits
+This forked version includes the source to build MSI Installers that will:
+  1. Install the module in the well-known Powershell path using embedded files for non-connected environments
+  2. Create a scheduled task to run it every night as SYSTEM.
+
+THe MSI Installers are built using the [WixSharp](https://github.com/oleg-shilo/wixsharp) project, the task scheduler manipulation is made using [TaskScheduler](https://github.com/dahall/taskscheduler), a .NET Wrapper for the Task Scheduler COM Interface. 
+
+## Simplified Forked version usage
+ 1. Run the MSI based on the platform of your choice found in Releases
+ 2. A task, visible as administrator, is created in the 'VSCELicense' folder of the local scheduled tasks library. Your can change its schedule if needed, based on operational constraints
+
+## Original Module Usage
 
 1. Download/clone this repository
 2. Run PowerShell.exe as an Administrator
@@ -26,6 +37,8 @@ Based on [Dmitrii](https://stackoverflow.com/users/10046552/dmitrii)'s answer to
 
     - [Set-ExecutionPolicy](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy)
     - [About Execution Policies](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies)
+
+
 
 ## Examples
 
