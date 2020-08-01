@@ -9,11 +9,15 @@ using WixSharp.Forms;
 using Microsoft.Win32.TaskScheduler;
 using System.Collections.Generic;
 using WixSharp.Controls;
+using System.Security.Principal;
+using System.Diagnostics;
 
 namespace VSCELicense_WixSharpInstaller
 {
     class Program
     {
+        private const string TaskSubFolderName = "VSCELicense";
+
         static Project createProject(Platform pt)
         {
             var project = new ManagedProject()
@@ -26,8 +30,9 @@ namespace VSCELicense_WixSharpInstaller
             // don't forget the external assembly not in GAC.
             project.DefaultRefAssemblies.Add(typeof(Microsoft.Win32.TaskScheduler.TaskService).Assembly.Location);
 
-            project.BeforeInstall += Project_BeforeInstall;
+            
             project.AfterInstall += Project_AfterInstall;
+           
 
             string shortArch;
             string longArch;
@@ -56,7 +61,8 @@ namespace VSCELicense_WixSharpInstaller
                     new Property("ShortArch",shortArch) ,
                     new Property("LongArch",longArch) 
                 };
-
+            project.DefaultDeferredProperties += "ShortArch,LongArch";
+            // TODO: properties are not passed around
 
             project.Dirs = new Dir[]
               {
@@ -72,14 +78,16 @@ namespace VSCELicense_WixSharpInstaller
             return project;
         }
 
+
         private static void Project_AfterInstall(SetupEventArgs e)
         {
-            string shortArch = e.Data["ShortArch"];
-            string longArch = e.Data["LongArch"];
+            string shortArch = e.Session.Property("ShortArch");
+            string longArch = e.Session.Property("LongArch");
+            string TaskName = $"VSCELicense{shortArch}";
             if (e.IsInstalling)
             {
               TaskService ts = TaskService.Instance;
-                TaskFolder tf = ts.RootFolder.CreateFolder("VSCELicense", exceptionOnExists: false);
+                TaskFolder tf = ts.RootFolder.CreateFolder(TaskSubFolderName, exceptionOnExists: false);
                 TaskDefinition td = ts.NewTask();
                 ExecAction ea = new ExecAction();
                 ea.Path = "powershell.exe";
@@ -104,39 +112,38 @@ Import-Module VSCELicense;
                 DailyTrigger dt = new DailyTrigger();
                 dt.StartBoundary = DateTime.Today + TimeSpan.FromHours(1);  // 1am 
                 td.Triggers.Add(dt);
-                // no underscore
-                tf.RegisterTaskDefinition($"VSCELicense{shortArch}", td);
-            }
-        }
-
-        private static void Project_BeforeInstall(SetupEventArgs e)
-        {
-            string shortArch = e.Data["ShortArch"];
-            string longArch = e.Data["LongArch"];
-           
-           if (e.IsUninstalling && e.IsElevated)  //TODO: find a workaround
+               
+                tf.RegisterTaskDefinition(TaskName, td);
+            }else if (e.IsUninstalling) 
             {
+                // Benefit fron elevation as here the order or file/task removal doesn't matter
+                // but BeforeINstall event should have been used to remove the task before the files being deleted
                 TaskService ts = TaskService.Instance;
-                TaskFolder tf = ts.GetFolder("VSCELicense");
+                TaskFolder tf = ts.GetFolder(TaskSubFolderName);
+              
                 if (null != tf)
                 {
-                    tf.DeleteTask($"VSCELicense{shortArch}", false);
+
+                  
+                    tf.DeleteTask(TaskName, false);
+                    int taskCount = tf.GetTasks().Count;
+                    if (0==taskCount)
+                    {
+                        ts.RootFolder.DeleteFolder(TaskSubFolderName);
+                    }
                 }
             }
         }
 
+     
         static void Main()
         {
 
            
-            var projectx86 = createProject(Platform.x86);
-           
+            var projectx86 = createProject(Platform.x86);           
             Compiler.BuildMsi(projectx86);
 
             var projectx64= createProject(Platform.x64);
-           
-     
-
             Compiler.BuildMsi(projectx64);
         }
         
