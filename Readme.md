@@ -11,7 +11,7 @@ This forked version includes the source to build MSI Installers that will:
   1. Install the module in the well-known Powershell path using embedded files for non-connected environments
   2. Create a scheduled task to run it every night as SYSTEM.
 
-THe MSI Installers are built using the [WixSharp](https://github.com/oleg-shilo/wixsharp) project, the task scheduler manipulation is made using [TaskScheduler](https://github.com/dahall/taskscheduler), a .NET Wrapper for the Task Scheduler COM Interface. 
+The MSI Installers are built using the [WixSharp](https://github.com/oleg-shilo/wixsharp) project, the task scheduler manipulation is made using [TaskScheduler](https://github.com/dahall/taskscheduler), a .NET Wrapper for the Task Scheduler COM Interface. 
 
 ## Simplified Forked version usage
  1. Run the MSI based on the platform of your choice found in Releases
