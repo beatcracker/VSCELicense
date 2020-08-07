@@ -1,9 +1,9 @@
 #region Constants
 
 New-Variable -Name VSCELicenseMap -Value @{
-    'VS2015' = 'Licenses\4D8CFBCB-2F6A-4AD2-BABF-10E28F6F2C8F\07078'
-    'VS2017' = 'Licenses\5C505A59-E312-4B89-9508-E162F8150517\08878'
-    'VS2019' = 'Licenses\41717607-F34E-432C-A138-A3CFD7E25CDA\09278'
+    '2015' = 'Licenses\4D8CFBCB-2F6A-4AD2-BABF-10E28F6F2C8F\07078'
+    '2017' = 'Licenses\5C505A59-E312-4B89-9508-E162F8150517\08878'
+    '2019' = 'Licenses\41717607-F34E-432C-A138-A3CFD7E25CDA\09278'
 } -Option Constant
 
 #endregion
@@ -132,23 +132,23 @@ Function Open-HKCRSubKey {
 
 .Parameter Version
     String array. One ore more of the suported Visual Studio Community Edition versions.
-    Default: 'VS2015', 'VS2017', 'VS2019'
+    Default: '2015', '2017', '2019'
 
 .Example
-    Get-VSCELicenseExpirationDate -Version VS2017
+    Get-VSCELicenseExpirationDate -Version 2017
 
     Get expiration date for all suported versions of Visual Studio.
 
 .Example
-    Get-VSCELicenseExpirationDate -Version VS2017
+    Get-VSCELicenseExpirationDate -Version 2017
 
     Get expiration date for Visual Studio 2017.
 #>
 function Get-VSCELicenseExpirationDate {
     [CmdletBinding()]
     Param (
-        [ValidateSet('VS2015', 'VS2017', 'VS2019')]
-        [string[]]$Version = @('VS2015', 'VS2017', 'VS2019')
+        [ValidateSet('2015', '2017', '2019')]
+        [string[]]$Version = @('2015', '2017', '2019')
     )
 
     End {
@@ -190,7 +190,7 @@ function Get-VSCELicenseExpirationDate {
 
 .Parameter Version
     String array. One ore more of the suported Visual Studio Community Edition versions.
-    Default: 'VS2015', 'VS2017', 'VS2019'
+    Default: '2015', '2017', '2019'
 
 .Parameter AddDays
     Int. Number of days to add. 31 is max allowed and default.
@@ -201,7 +201,7 @@ function Get-VSCELicenseExpirationDate {
     Set license expiration date to current date + 31 day for all suported versions of Visual Studio.
 
 .Example
-    Set-VSCELicenseExpirationDate -Version VS2019
+    Set-VSCELicenseExpirationDate -Version 2019
 
     Set license expiration date to current date + 31 day for Visual Studio 2019 only.
 
@@ -211,7 +211,7 @@ function Get-VSCELicenseExpirationDate {
     Set license expiration date to current date + 10 days for all suported versions of Visual Studio.
 
 .Example
-    Set-VSCELicenseExpirationDate -Version VS2019 -AddDays 0
+    Set-VSCELicenseExpirationDate -Version 2019 -AddDays 0
 
     Set license expiration date to current date for Visual Studio 2019 only.
     This will immediately expire your license and you wouldn't be able to use Visual Studio 2019.
@@ -219,8 +219,8 @@ function Get-VSCELicenseExpirationDate {
 function Set-VSCELicenseExpirationDate {
     [CmdletBinding()]
     Param (
-        [ValidateSet('VS2015', 'VS2017', 'VS2019')]
-        [string[]]$Version = @('VS2015', 'VS2017', 'VS2019'),
+        [ValidateSet('2015', '2017', '2019')]
+        [string[]]$Version = @('2015', '2017', '2019'),
 
         [ValidateRange(0, 31)]
         [int]$AddDays = 31
