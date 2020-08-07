@@ -131,13 +131,13 @@ Function Open-HKCRSubKey {
     Get Visual Studio Community Edition license expiration date
 
 .Parameter Version
-    String array. One ore more of the suported Visual Studio Community Edition versions.
+    String array. One ore more of the supported Visual Studio Community Edition versions.
     Default: '2015', '2017', '2019'
 
 .Example
     Get-VSCELicenseExpirationDate -Version 2017
 
-    Get expiration date for all suported versions of Visual Studio.
+    Get expiration date for all supported versions of Visual Studio.
 
 .Example
     Get-VSCELicenseExpirationDate -Version 2017
@@ -189,7 +189,7 @@ function Get-VSCELicenseExpirationDate {
     This is max allowed number of days, otherwise your license will be deemed invalid.
 
 .Parameter Version
-    String array. One ore more of the suported Visual Studio Community Edition versions.
+    String array. One ore more of the supported Visual Studio Community Edition versions.
     Default: '2015', '2017', '2019'
 
 .Parameter AddDays
@@ -198,7 +198,7 @@ function Get-VSCELicenseExpirationDate {
 .Example
     Set-VSCELicenseExpirationDate
 
-    Set license expiration date to current date + 31 day for all suported versions of Visual Studio.
+    Set license expiration date to current date + 31 day for all supported versions of Visual Studio.
 
 .Example
     Set-VSCELicenseExpirationDate -Version 2019
@@ -208,7 +208,7 @@ function Get-VSCELicenseExpirationDate {
 .Example
     Set-VSCELicenseExpirationDate -AddDays 10
 
-    Set license expiration date to current date + 10 days for all suported versions of Visual Studio.
+    Set license expiration date to current date + 10 days for all supported versions of Visual Studio.
 
 .Example
     Set-VSCELicenseExpirationDate -Version 2019 -AddDays 0
