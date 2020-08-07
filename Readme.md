@@ -1,5 +1,6 @@
 # 📜 VSCELicense
 
+- [Details](#details)
 - [Usage](#usage)
 - [Examples](#examples)
   - [Get Visual Studio Community Edition license expiration date](#get-visual-studio-community-edition-license-expiration-date)
