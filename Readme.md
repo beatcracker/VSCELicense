@@ -82,7 +82,7 @@ Set-VSCELicenseExpirationDate -Version 2017
 Multiple versions of Visual Studio.
 
 ```pwsh
-Set-VSCELicenseExpirationDate -Version 2019
+Set-VSCELicenseExpirationDate -Version 2019, 2017
 ```
 
 #### Set license expiration date to 10 days from now
@@ -124,7 +124,7 @@ Set-VSCELicenseExpirationDate -Version 2017 -AddDays 0
 Multiple versions of Visual Studio.
 
 ```pwsh
-Set-VSCELicenseExpirationDate -Version 2019 -AddDays 0
+Set-VSCELicenseExpirationDate -Version 2019, 2017 -AddDays 0
 ```
 
 ### Changelog
