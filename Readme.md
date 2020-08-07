@@ -1,5 +1,14 @@
 # 📜 VSCELicense
 
+- [Usage](#usage)
+- [Examples](#examples)
+  - [Get Visual Studio Community Edition license expiration date](#get-visual-studio-community-edition-license-expiration-date)
+  - [Set Visual Studio Community Edition license expiration date](#set-visual-studio-community-edition-license-expiration-date)
+    - [Set license expiration date to 31 day from now](#set-license-expiration-date-to-31-days-from-nowy)
+    - [Set license expiration date to 10 days from now](#set-license-expiration-date-to-10-days-from-now)
+    - [Set license expiration date to current date](#set-license-expiration-date-to-current-date)
+- [Changelog](#changelog)
+
 ## Details
 
 PowerShell module to get and set Visual Studio Community Edition license expiration date in the registry. Visual Studio 2015, 2017 and 2019 are supported.
@@ -55,7 +64,7 @@ Get-VSCELicenseExpirationDate -Version 2019, 2017
 
 ⚡ Writing to the Visual Studio license registry key requires elevated permissions. Run PowerShell as administrator for examples to work.
 
-#### Set license expiration date to current date + 31 day
+#### Set license expiration date to 31 day from now
 
 All supported versions of Visual Studio.
 
