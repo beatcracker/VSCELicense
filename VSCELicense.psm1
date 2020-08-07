@@ -115,15 +115,14 @@ Function Open-HKCRSubKey {
             $HKCR.Dispose()
         }
 
-        if (-not $LicenseKey.ValueCount) {
-            throw "Registry key not found: HKEY_CLASSES_ROOT\$SubKey"
+        if ($null -ne $LicenseKey) {
+            $LicenseKey
         }
-
-        $LicenseKey
     }
 }
 
 #endregion
+
 
 #region External functions
 
@@ -132,36 +131,50 @@ Function Open-HKCRSubKey {
     Get Visual Studio Community Edition license expiration date
 
 .Parameter Version
-    String. One of the suported Visual Studio Community Edition versions. Default is VS2017.
+    String array. One ore more of the suported Visual Studio Community Edition versions.
+    Default: 'VS2015', 'VS2017', 'VS2019'
 
 .Example
     Get-VSCELicenseExpirationDate -Version VS2017
+
+    Get expiration date for all suported versions of Visual Studio.
+
+.Example
+    Get-VSCELicenseExpirationDate -Version VS2017
+
+    Get expiration date for Visual Studio 2017.
 #>
 function Get-VSCELicenseExpirationDate {
     [CmdletBinding()]
     Param (
         [ValidateSet('VS2015', 'VS2017', 'VS2019')]
-        [string]$Version = 'VS2017'
+        [string[]]$Version = @('VS2015', 'VS2017', 'VS2019')
     )
 
     End {
-        $LicenseKey = Open-HKCRSubKey -SubKey $VSCELicenseMap.$Version
+        foreach ($v in $Version) {
+            if ($LicenseKey = Open-HKCRSubKey -SubKey $VSCELicenseMap.$v) {
 
-        try {
-            $LicenseBlob = [System.Security.Cryptography.ProtectedData]::Unprotect(
-                $LicenseKey.GetValue($null),
-                $null,
-                [System.Security.Cryptography.DataProtectionScope]::LocalMachine
-            )
-        }
-        catch {
-            throw $_
-        }
-        finally {
-            $LicenseKey.Dispose()
-        }
+                try {
+                    $LicenseBlob = [System.Security.Cryptography.ProtectedData]::Unprotect(
+                        $LicenseKey.GetValue($null),
+                        $null,
+                        [System.Security.Cryptography.DataProtectionScope]::LocalMachine
+                    )
+                }
+                catch {
+                    throw $_
+                }
+                finally {
+                    $LicenseKey.Dispose()
+                }
 
-        ConvertFrom-BinaryDate $LicenseBlob[-16..-11] -ErrorAction Stop
+                [PSCustomObject]@{
+                    Version        = $v
+                    ExpirationDate = ConvertFrom-BinaryDate $LicenseBlob[-16..-11] -ErrorAction Stop
+                }
+            }
+        }
     }
 }
 
@@ -176,82 +189,90 @@ function Get-VSCELicenseExpirationDate {
     This is max allowed number of days, otherwise your license will be deemed invalid.
 
 .Parameter Version
-    String. One of the suported Visual Studio Community Edition versions. Default is VS2017.
+    String array. One ore more of the suported Visual Studio Community Edition versions.
+    Default: 'VS2015', 'VS2017', 'VS2019'
 
 .Parameter AddDays
     Int. Number of days to add. 31 is max allowed and default.
 
 .Example
-    Set-VSCELicenseExpirationDate -Version VS2017
+    Set-VSCELicenseExpirationDate
 
-    Set license expiration date to current date + 31 day (Visual Studio 2017)
+    Set license expiration date to current date + 31 day for all suported versions of Visual Studio.
 
 .Example
     Set-VSCELicenseExpirationDate -Version VS2019
 
-    Set license expiration date to current date + 31 day  (Visual Studio 2019)
+    Set license expiration date to current date + 31 day for Visual Studio 2019 only.
 
 .Example
-    Set-VSCELicenseExpirationDate -Version VS2019 -AddDays 10
+    Set-VSCELicenseExpirationDate -AddDays 10
 
-    Set license expiration date to current date + 10 days
+    Set license expiration date to current date + 10 days for all suported versions of Visual Studio.
 
 .Example
     Set-VSCELicenseExpirationDate -Version VS2019 -AddDays 0
 
-    Set license expiration date to current date.
-    This will immediately expire your license and you wouldn't be able to use Visual Studio.
+    Set license expiration date to current date for Visual Studio 2019 only.
+    This will immediately expire your license and you wouldn't be able to use Visual Studio 2019.
 #>
 function Set-VSCELicenseExpirationDate {
     [CmdletBinding()]
     Param (
         [ValidateSet('VS2015', 'VS2017', 'VS2019')]
-        [string]$Version = 'VS2017',
+        [string[]]$Version = @('VS2015', 'VS2017', 'VS2019'),
 
         [ValidateRange(0, 31)]
         [int]$AddDays = 31
     )
 
     End {
-        $LicenseKey = Open-HKCRSubKey -SubKey $VSCELicenseMap.$Version -ReadWrite
+        foreach ($v in $Version) {
+            if ($LicenseKey = Open-HKCRSubKey -SubKey $VSCELicenseMap.$v -ReadWrite) {
 
-        try {
-            $LicenseBlob = [System.Security.Cryptography.ProtectedData]::Unprotect(
-                $LicenseKey.GetValue($null),
-                $null,
-                [System.Security.Cryptography.DataProtectionScope]::LocalMachine
-            )
+                try {
+                    $LicenseBlob = [System.Security.Cryptography.ProtectedData]::Unprotect(
+                        $LicenseKey.GetValue($null),
+                        $null,
+                        [System.Security.Cryptography.DataProtectionScope]::LocalMachine
+                    )
 
-            $NewExpirationDate = [datetime]::Today.AddDays($AddDays)
+                    $NewExpirationDate = [datetime]::Today.AddDays($AddDays)
 
-            $LicenseKey.SetValue(
-                $null,
-                [System.Security.Cryptography.ProtectedData]::Protect(
-                    @(
-                        $LicenseBlob[ - $LicenseBlob.Count..-17]
-                        $NewExpirationDate | ConvertTo-BinaryDate -ErrorAction Stop
-                        $LicenseBlob[-10..-1]
-                    ),
-                    $null,
-                    [System.Security.Cryptography.DataProtectionScope]::LocalMachine
-                ),
-                [Microsoft.Win32.RegistryValueKind]::Binary
-            )
+                    $LicenseKey.SetValue(
+                        $null,
+                        [System.Security.Cryptography.ProtectedData]::Protect(
+                            @(
+                                $LicenseBlob[ - $LicenseBlob.Count..-17]
+                                $NewExpirationDate | ConvertTo-BinaryDate -ErrorAction Stop
+                                $LicenseBlob[-10..-1]
+                            ),
+                            $null,
+                            [System.Security.Cryptography.DataProtectionScope]::LocalMachine
+                        ),
+                        [Microsoft.Win32.RegistryValueKind]::Binary
+                    )
+                }
+                catch {
+                    throw $_
+                }
+                finally {
+                    $LicenseKey.Dispose()
+                }
+
+                [PSCustomObject]@{
+                    Version        = $v
+                    ExpirationDate = $NewExpirationDate
+                }
+            }
         }
-        catch {
-            throw $_
-        }
-        finally {
-            $LicenseKey.Dispose()
-        }
-
-        $NewExpirationDate
     }
 }
 
 #endregion
 
-#region Startup
+
+#region Init
 
 if (-not ([System.Management.Automation.PSTypeName]'System.Security.Cryptography.ProtectedData').Type) {
     $ModulePath = $Script:MyInvocation.MyCommand.Path
