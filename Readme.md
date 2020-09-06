@@ -1,4 +1,14 @@
-# VSCELicense
+# 📜 VSCELicense
+
+- [Details](#details)
+- [Usage](#usage)
+- [Examples](#examples)
+  - [Get Visual Studio Community Edition license expiration date](#get-visual-studio-community-edition-license-expiration-date)
+  - [Set Visual Studio Community Edition license expiration date](#set-visual-studio-community-edition-license-expiration-date)
+    - [Set license expiration date to 31 day from now](#set-license-expiration-date-to-31-days-from-nowy)
+    - [Set license expiration date to 10 days from now](#set-license-expiration-date-to-10-days-from-now)
+    - [Set license expiration date to current date](#set-license-expiration-date-to-current-date)
+- [Changelog](#changelog)
 
 ## Details
 
@@ -20,11 +30,13 @@ The MSI Installers are built using the [WixSharp](https://github.com/oleg-shilo/
 ## Original Module Usage
 
 1. Download/clone this repository
-2. Run PowerShell.exe as an Administrator
+2. Run PowerShell.exe as Administrator
 3. Import module:
 
+    Assuming that you cloned/downloaded this repo to `C:\VSCELicense`
+
    ```pwsh
-   Import-Module -Name X:\PATH\TO\VSCELicense
+   Import-Module -Name 'C:\VSCELicense\VSCELicense.psd1'
    ```
 
     If you get `execution of scripts is disabled on this system` message, you can temporarily override PowerShell execution policy by running
@@ -44,72 +56,97 @@ The MSI Installers are built using the [WixSharp](https://github.com/oleg-shilo/
 
 ### Get Visual Studio Community Edition license expiration date
 
-```pwsh
-Get-VSCELicenseExpirationDate -Version VS2015
-```
+All supported versions of Visual Studio.
 
 ```pwsh
-Get-VSCELicenseExpirationDate -Version VS2017
+Get-VSCELicenseExpirationDate
 ```
 
+One specific version of Visual Studio.
+
 ```pwsh
-Get-VSCELicenseExpirationDate -Version VS2019
+Get-VSCELicenseExpirationDate -Version 2017
+```
+
+Multiple versions of Visual Studio.
+
+```pwsh
+Get-VSCELicenseExpirationDate -Version 2019, 2017
 ```
 
 ### Set Visual Studio Community Edition license expiration date
 
-Writing to the Visual Studio license registry key requires elevated permissions. Run PowerShell as administrator for examples to work.
+⚡ Writing to the Visual Studio license registry key requires elevated permissions. Run PowerShell as administrator for examples to work.
 
-#### Set license expiration date to current date + 31 day
+#### Set license expiration date to 31 day from now
+
+All supported versions of Visual Studio.
 
 ```pwsh
-Set-VSCELicenseExpirationDate -Version VS2015
+Set-VSCELicenseExpirationDate
 ```
 
+One specific version of Visual Studio.
+
 ```pwsh
-Set-VSCELicenseExpirationDate -Version VS2017
+Set-VSCELicenseExpirationDate -Version 2017
 ```
 
+Multiple versions of Visual Studio.
+
 ```pwsh
-Set-VSCELicenseExpirationDate -Version VS2019
+Set-VSCELicenseExpirationDate -Version 2019, 2017
 ```
 
-#### Set license expiration date to current date + 10 days
+#### Set license expiration date to 10 days from now
+
+All supported versions of Visual Studio.
 
 ```pwsh
-Set-VSCELicenseExpirationDate -Version VS2015 -AddDays 10
+Set-VSCELicenseExpirationDate -AddDays 10
 ```
 
-```pwsh
-Set-VSCELicenseExpirationDate -Version VS2017 -AddDays 10
-```
+One specific version of Visual Studio.
 
 ```pwsh
-Set-VSCELicenseExpirationDate -Version VS2019 -AddDays 10
+Set-VSCELicenseExpirationDate -Version 2017 -AddDays 10
+```
+
+Multiple versions of Visual Studio.
+
+```pwsh
+Set-VSCELicenseExpirationDate -Version 2019, 2017 -AddDays 10
 ```
 
 #### Set license expiration date to current date
 
-This will immediately expire your license and you wouldn't be able to use Visual Studio.
+⚡ This will immediately expire your license and you wouldn't be able to use Visual Studio.
+
+All supported versions of Visual Studio.
 
 ```pwsh
-Set-VSCELicenseExpirationDate -Version VS2015 -AddDays 0
+Set-VSCELicenseExpirationDate -AddDays 0
 ```
 
-```pwsh
-Set-VSCELicenseExpirationDate -Version VS2017 -AddDays 0
-```
+One specific version of Visual Studio.
 
 ```pwsh
-Set-VSCELicenseExpirationDate -Version VS2019 -AddDays 0
+Set-VSCELicenseExpirationDate -Version 2017 -AddDays 0
+```
+
+Multiple versions of Visual Studio.
+
+```pwsh
+Set-VSCELicenseExpirationDate -Version 2019, 2017 -AddDays 0
 ```
 
 ### Changelog
 
-- 0.0.1 - Initial commit, VS2017 support
-- 0.0.2 - Added VS2019 support
-- 0.0.3 - Fixed manifest to avoid execution errors under fresh PowerShell environments ([@1Dimitri](https://github.com/1Dimitri))
-- 0.0.4 - Support downlevel PowerShell versions, starting from `3.0`
-- 0.0.5 - Duh, actually set `PowerShellVersion = '3.0'` in manifest
+- 0.0.8 - Make it easier to use by not requiring to specify Visual Studio version
+- 0.0.7 - Added 2015 support ([@GDI123](https://github.com/GDI123))
 - 0.0.6 - Load `System.Security` assembly if module was imported without manifest
-- 0.0.7 - Added VS2015 support ([@GDI123](https://github.com/GDI123))
+- 0.0.5 - Duh, actually set `PowerShellVersion = '3.0'` in manifest
+- 0.0.4 - Support downlevel PowerShell versions, starting from `3.0`
+- 0.0.3 - Fixed manifest to avoid execution errors under fresh PowerShell environments ([@1Dimitri](https://github.com/1Dimitri))
+- 0.0.2 - Added 2019 support
+- 0.0.1 - Initial commit, 2017 support
