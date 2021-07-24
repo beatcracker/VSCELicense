@@ -4,6 +4,8 @@ New-Variable -Name VSCELicenseMap -Value @{
     '2015' = 'Licenses\4D8CFBCB-2F6A-4AD2-BABF-10E28F6F2C8F\07078'
     '2017' = 'Licenses\5C505A59-E312-4B89-9508-E162F8150517\08878'
     '2019' = 'Licenses\41717607-F34E-432C-A138-A3CFD7E25CDA\09278'
+    # TODO: Preview version, replace with Release
+    '2022' = 'Licenses\10D17DBA-761D-4CD8-A627-984E75A58700\09378'
 } -Option Constant
 
 #endregion
@@ -132,7 +134,7 @@ Function Open-HKCRSubKey {
 
 .Parameter Version
     String array. One ore more of the supported Visual Studio Community Edition versions.
-    Default: '2015', '2017', '2019'
+    Default: '2015', '2017', '2019', '2022'
 
 .Example
     Get-VSCELicenseExpirationDate -Version 2017
@@ -147,8 +149,8 @@ Function Open-HKCRSubKey {
 function Get-VSCELicenseExpirationDate {
     [CmdletBinding()]
     Param (
-        [ValidateSet('2015', '2017', '2019')]
-        [string[]]$Version = @('2015', '2017', '2019')
+        [ValidateSet('2015', '2017', '2019', '2022')]
+        [string[]]$Version = @('2015', '2017', '2019', '2022')
     )
 
     End {
@@ -190,7 +192,7 @@ function Get-VSCELicenseExpirationDate {
 
 .Parameter Version
     String array. One ore more of the supported Visual Studio Community Edition versions.
-    Default: '2015', '2017', '2019'
+    Default: '2015', '2017', '2019', '2022'
 
 .Parameter AddDays
     Int. Number of days to add. 31 is max allowed and default.
@@ -219,8 +221,8 @@ function Get-VSCELicenseExpirationDate {
 function Set-VSCELicenseExpirationDate {
     [CmdletBinding()]
     Param (
-        [ValidateSet('2015', '2017', '2019')]
-        [string[]]$Version = @('2015', '2017', '2019'),
+        [ValidateSet('2015', '2017', '2019', '2022')]
+        [string[]]$Version = @('2015', '2017', '2019', '2022'),
 
         [ValidateRange(0, 31)]
         [int]$AddDays = 31

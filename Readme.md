@@ -53,13 +53,13 @@ Get-VSCELicenseExpirationDate
 One specific version of Visual Studio.
 
 ```pwsh
-Get-VSCELicenseExpirationDate -Version 2017
+Get-VSCELicenseExpirationDate -Version 2019
 ```
 
 Multiple versions of Visual Studio.
 
 ```pwsh
-Get-VSCELicenseExpirationDate -Version 2019, 2017
+Get-VSCELicenseExpirationDate -Version 2019, 2022
 ```
 
 ### Set Visual Studio Community Edition license expiration date
@@ -77,13 +77,13 @@ Set-VSCELicenseExpirationDate
 One specific version of Visual Studio.
 
 ```pwsh
-Set-VSCELicenseExpirationDate -Version 2017
+Set-VSCELicenseExpirationDate -Version 2019
 ```
 
 Multiple versions of Visual Studio.
 
 ```pwsh
-Set-VSCELicenseExpirationDate -Version 2019, 2017
+Set-VSCELicenseExpirationDate -Version 2019, 2022
 ```
 
 #### Set license expiration date to 10 days from now
@@ -97,13 +97,13 @@ Set-VSCELicenseExpirationDate -AddDays 10
 One specific version of Visual Studio.
 
 ```pwsh
-Set-VSCELicenseExpirationDate -Version 2017 -AddDays 10
+Set-VSCELicenseExpirationDate -Version 2019 -AddDays 10
 ```
 
 Multiple versions of Visual Studio.
 
 ```pwsh
-Set-VSCELicenseExpirationDate -Version 2019, 2017 -AddDays 10
+Set-VSCELicenseExpirationDate -Version 2019, 2022 -AddDays 10
 ```
 
 #### Set license expiration date to current date
@@ -119,22 +119,23 @@ Set-VSCELicenseExpirationDate -AddDays 0
 One specific version of Visual Studio.
 
 ```pwsh
-Set-VSCELicenseExpirationDate -Version 2017 -AddDays 0
+Set-VSCELicenseExpirationDate -Version 2019 -AddDays 0
 ```
 
 Multiple versions of Visual Studio.
 
 ```pwsh
-Set-VSCELicenseExpirationDate -Version 2019, 2017 -AddDays 0
+Set-VSCELicenseExpirationDate -Version 2019, 2022 -AddDays 0
 ```
 
 ### Changelog
 
+- 0.0.9 - Add VS 2022 preview support
 - 0.0.8 - Make it easier to use by not requiring to specify Visual Studio version
-- 0.0.7 - Added 2015 support ([@GDI123](https://github.com/GDI123))
+- 0.0.7 - Add 2015 support ([@GDI123](https://github.com/GDI123))
 - 0.0.6 - Load `System.Security` assembly if module was imported without manifest
 - 0.0.5 - Duh, actually set `PowerShellVersion = '3.0'` in manifest
 - 0.0.4 - Support downlevel PowerShell versions, starting from `3.0`
-- 0.0.3 - Fixed manifest to avoid execution errors under fresh PowerShell environments ([@1Dimitri](https://github.com/1Dimitri))
-- 0.0.2 - Added 2019 support
-- 0.0.1 - Initial commit, 2017 support
+- 0.0.3 - Fix manifest to avoid execution errors under fresh PowerShell environments ([@1Dimitri](https://github.com/1Dimitri))
+- 0.0.2 - Add VS 2019 support
+- 0.0.1 - Initial commit, VS 2017 support
