@@ -4,8 +4,7 @@ New-Variable -Name VSCELicenseMap -Value @{
     '2015' = 'Licenses\4D8CFBCB-2F6A-4AD2-BABF-10E28F6F2C8F\07078'
     '2017' = 'Licenses\5C505A59-E312-4B89-9508-E162F8150517\08878'
     '2019' = 'Licenses\41717607-F34E-432C-A138-A3CFD7E25CDA\09278'
-    # TODO: Preview version, replace with Release
-    '2022' = 'Licenses\10D17DBA-761D-4CD8-A627-984E75A58700\09478'
+    '2022' = 'Licenses\10D17DBA-761D-4CD8-A627-984E75A58700\09460'
 } -Option Constant
 
 #endregion
