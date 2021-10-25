@@ -21,7 +21,7 @@ Based on [Dmitrii](https://stackoverflow.com/users/10046552/dmitrii)'s answer to
 ## Usage
 
 1. Download/clone this repository
-2. Run PowerShell.exe as Administrator
+2. Run `PowerShell.exe` or `pwsh.exe` as Administrator
 3. Import module:
 
     Assuming that you cloned/downloaded this repo to `C:\VSCELicense`
