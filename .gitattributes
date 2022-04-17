@@ -7,7 +7,7 @@
 *.md            text
 *.gitattributes text
 
-License
+LICENSE
 
 # Declare files that will always have CRLF line endings on checkout.
 *.ps1    text  eol=crlf
