@@ -12,7 +12,7 @@
 
 ## Details
 
-PowerShell module to get and set Visual Studio Community Edition license expiration date in the registry. Visual Studio 2015, 2017 and 2019 are supported.
+PowerShell module to get and set Visual Studio Community Edition license expiration date in the registry. Visual Studio 2013, 2015, 2017 and 2019 are supported.
 
 Based on [Dmitrii](https://stackoverflow.com/users/10046552/dmitrii)'s answer to this Stack Overflow question: [Visual Studio Community 2017 is a 30 day trial?](https://stackoverflow.com/questions/43390466/visual-studio-community-2017-is-a-30-day-trial/51570570#51570570)
 
@@ -131,6 +131,7 @@ Set-VSCELicenseExpirationDate -Version 2019, 2017 -AddDays 0
 
 ### Changelog
 
+- 0.0.9 - Added 2013 support ([@andreburto](https://github.com/andreburto))
 - 0.0.8 - Make it easier to use by not requiring to specify Visual Studio version
 - 0.0.7 - Added 2015 support ([@GDI123](https://github.com/GDI123))
 - 0.0.6 - Load `System.Security` assembly if module was imported without manifest
