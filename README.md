@@ -1,6 +1,7 @@
 # 📜 VSCELicense
 
 - [Details](#details)
+- [Important notes](#important-notes)
 - [Usage](#usage)
 - [Examples](#examples)
   - [Get Visual Studio Community Edition license expiration date](#get-visual-studio-community-edition-license-expiration-date)
@@ -10,18 +11,22 @@
     - [Set license expiration date to current date](#set-license-expiration-date-to-current-date)
 - [Changelog](#changelog)
 
+## Important notes
+
+ℹ️ Visual Studio Enterprise Edition support was provided in this fork which is now removed by the author: [l3afblow3r/VSEELicense](https://github.com/l3afblow3r/VSEELicense)
+
+⚠ Visual Studio Community 2022 seems to have no time limit, see this issue for details: [#14 | VS 2022 support](https://github.com/beatcracker/VSCELicense/issues/14#issuecomment-965637210)
+
 ## Details
 
-PowerShell module to get and set Visual Studio Community Edition license expiration date in the registry. Visual Studio 2013, 2015, 2017 and 2019 are supported.
+PowerShell module to get and set the Visual Studio Community Edition license expiration date in the registry. Visual Studio 2013, 2015, 2017, and 2019 are supported.
 
 Based on [Dmitrii](https://stackoverflow.com/users/10046552/dmitrii)'s answer to this Stack Overflow question: [Visual Studio Community 2017 is a 30 day trial?](https://stackoverflow.com/questions/43390466/visual-studio-community-2017-is-a-30-day-trial/51570570#51570570)
-
-ℹ️ For Visual Studio Enterprise Edition support see this fork: [l3afblow3r/VSEELicense](https://github.com/l3afblow3r/VSEELicense)
 
 ## Usage
 
 1. Download/clone this repository
-2. Run `PowerShell.exe` or `pwsh.exe` as Administrator
+2. Run `PowerShell.exe` or `pwsh.exe` as the Administrator
 3. Import module:
 
     Assuming that you cloned/downloaded this repo to `C:\VSCELicense`
@@ -67,7 +72,7 @@ Get-VSCELicenseExpirationDate -Version 2019, 2017
 
 ⚡ Writing to the Visual Studio license registry key requires elevated permissions. Run PowerShell as administrator for examples to work.
 
-#### Set license expiration date to 31 day from now
+#### Set a license expiration date to 31 days from now
 
 All supported versions of Visual Studio.
 
@@ -107,7 +112,7 @@ Multiple versions of Visual Studio.
 Set-VSCELicenseExpirationDate -Version 2019, 2017 -AddDays 10
 ```
 
-#### Set license expiration date to current date
+#### Set a license expiration date to current date
 
 ⚡ This will immediately expire your license and you wouldn't be able to use Visual Studio.
 
@@ -131,12 +136,12 @@ Set-VSCELicenseExpirationDate -Version 2019, 2017 -AddDays 0
 
 ### Changelog
 
-- 0.0.9 - Added 2013 support ([@andreburto](https://github.com/andreburto))
-- 0.0.8 - Make it easier to use by not requiring to specify Visual Studio version
-- 0.0.7 - Added 2015 support ([@GDI123](https://github.com/GDI123))
-- 0.0.6 - Load `System.Security` assembly if module was imported without manifest
+- 0.0.9 - Added VS 2013 support ([@andreburto](https://github.com/andreburto))
+- 0.0.8 - Make it easier to use by not requiring to specify the Visual Studio version
+- 0.0.7 - Added VS 2015 support ([@GDI123](https://github.com/GDI123))
+- 0.0.6 - Load `System.Security` assembly if the module was imported without manifest
 - 0.0.5 - Duh, actually set `PowerShellVersion = '3.0'` in manifest
 - 0.0.4 - Support downlevel PowerShell versions, starting from `3.0`
 - 0.0.3 - Fixed manifest to avoid execution errors under fresh PowerShell environments ([@1Dimitri](https://github.com/1Dimitri))
-- 0.0.2 - Added 2019 support
-- 0.0.1 - Initial commit, 2017 support
+- 0.0.2 - Added VS 2019 support
+- 0.0.1 - Initial commit, VS 2017 support
